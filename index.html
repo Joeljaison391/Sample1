@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form action="/signup" method="POST">
+    <div id="recaptcha-container"></div>
+    <button type="submit">Sign Up</button>
+  </form>
+
+  <script src="https://www.google.com/recaptcha/enterprise.js?onload=onloadcallback&render=explicit"></script>
+  <script>
+    const siteKey = "6LeB-7sfAAAAAH6XhArL8pygmv9ciswMzZ5iVdC6";
+
+    const onloadcallback = () => {
+      grecaptcha.enterprise.render('recaptcha-container', {
+        sitekey: siteKey,
+        size: 'normal',
+        callback: onSubmit
+      });
+    };
+
+    const onSubmit = async () => {
+      const token = await grecaptcha.enterprise.getResponse();
+      // Do something with the token, such as verifying it with the Pangea API.
+    };
+
+    window.onloadcallback = onloadcallback;
+  </script>
+</body>
+</html>
